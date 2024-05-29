@@ -3,13 +3,10 @@ const fs = require('fs');
 const path = require('path');
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
+// Middleware pour servir des fichiers statiques
 app.use(express.static('public'));
-
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
-});
 
 // API pour obtenir un texte aléatoire
 app.get('/api/random-text', (req, res) => {
