@@ -1,0 +1,12 @@
+La carte mère est l'élement central de votre ordinateur, c'est grâce à elle que les composants communiquent entre eux.
+Les premières cartes mères voient le jour dans les années 80 avec IBM pour leur premier "Personnal Computer"; elles n'avaient rien à voir avec les cartes mères que l'on trouve maintenant.
+Le premier nom de la carte mère est "Planar", avec le temps, c'est devenu "carte mère" car elle joue le rôle de mère pour les autres composants. C'est d'ailleurs pour cela que l'on peut entendre le terme de "carte fille" pour les extensions de carte mère.
+
+Je pense que vous l'aurez deviné, le connecteur d'alimentation processeur alimente directement le processeur en énergie.
+Suivant le type de processeur, ce connecteur peut se composer d'une connectique à 4 ou 8 broches ; les 4 broches sont généralement pour les modèles plus anciens.
+Sur les cartes mères récentes comme celle ci-dessus, on a généralement 8 broches, le lot de 4 broches à côté est facultatif, il servira si jamais vous faites de l'overcloking.
+
+On retrouve ce type de pins sur toutes les cartes mères, ils servent à connecter : le bouton d'allumage de votre boîtier, le bouton reset, et les led d'activité disques. On trouve également un emplacement pour un speaker qui sert à émettre des "bips" (cela pourra être utile en cas de problème de démarrage).
+Sur certains modèles de carte mère, on peut aussi trouver un connecteur d'intrusion du chassis qui sert à voir si la tour a été ouverte.
+Sur ce point, chaque marque de carte mère fait comme bon lui semble. On retrouvera toujours les principaux connecteurs, mais ils pourront éventuellement être placés différemment.
+

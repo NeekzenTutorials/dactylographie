@@ -1,0 +1,43 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    text-align: center;
+}
+
+#text-display {
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin-bottom: 20px;
+    white-space: pre-wrap;
+    font-family: monospace;
+}
+
+#text-input {
+    width: 100%;
+    height: 100px;
+    margin-bottom: 20px;
+    font-family: monospace;
+}
+
+button {
+    padding: 10px 20px;
+}
+
+.correct {
+    color: green;
+}
+
+.incorrect {
+    color: red;
+}
+
+.current {
+    color: rgb(255, 153, 0);
+}
