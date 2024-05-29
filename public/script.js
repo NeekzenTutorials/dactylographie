@@ -3,11 +3,13 @@ let currentIndex = 0;
 let startTime;
 let timer;
 let countdown;
-const countdownTime = 60; // 60 seconds countdown
-const targetWordCount = 100; // Target number of words
-const wordMargin = 10; // +/- 10 words
+const countdownTime = 60;
+const targetWordCount = 100;
+const wordMargin = 10;
+let isFinished = false;
 
 function startTest() {
+    const isFinished = false;
     fetch('/api/random-text')
         .then(response => response.json())
         .then(data => {
@@ -15,11 +17,11 @@ function startTest() {
             currentIndex = 0;
             updateDisplay();
             document.getElementById('text-input').value = '';
-            document.getElementById('result').innerText = '';
+            document.getElementById('time').innerText = '';
             startTime = new Date();
             document.getElementById('text-input').focus();
             timer = setInterval(updateTime, 1000);
-            countdown = setTimeout(endTest, countdownTime * 1000); // end test after 60 seconds
+            countdown = setTimeout(endTest, countdownTime * 1000);
         })
         .catch(err => console.error('Erreur:', err));
 }
@@ -36,6 +38,7 @@ function getRandomTextPortion(text, targetWordCount, wordMargin) {
 }
 
 function updateDisplay() {
+    if (isFinished) {return;}
     const textDisplay = document.getElementById('text-display');
     textDisplay.innerHTML = '';
 
@@ -56,6 +59,7 @@ function updateDisplay() {
 }
 
 function checkInput() {
+    if (isFinished) {return;}
     const input = document.getElementById('text-input').value;
     const currentChar = textToType[currentIndex];
 
@@ -74,7 +78,7 @@ function checkInput() {
             const endTime = new Date();
             const timeTaken = (endTime - startTime) / 1000;
             const accuracy = calculateAccuracy();
-            document.getElementById('result').innerText = `Temps: ${timeTaken} secondes, Précision: ${accuracy}%`;
+            document.getElementById('time').innerText = `Temps: ${timeTaken} secondes, Précision: ${accuracy}%`;
         }
     }
 }
@@ -85,10 +89,13 @@ function calculateAccuracy() {
 }
 
 function updateTime() {
+    if (isFinished) {return;}
     const currentTime = new Date();
     const timeElapsed = ((currentTime - startTime) / 1000).toFixed(0);
     const timeLeft = countdownTime - timeElapsed;
-    document.getElementById('result').innerText = `Temps restant: ${timeLeft} secondes`;
+    document.getElementById('time').innerText = `Temps restant: ${timeLeft} secondes`;
+    const accuracy = calculateAccuracy();
+    document.getElementById('accuracy').innerText = `Précision: ${accuracy}%`;
     if (timeLeft <= 0) {
         endTest();
     }
@@ -96,6 +103,5 @@ function updateTime() {
 
 function endTest() {
     clearInterval(timer);
-    const accuracy = calculateAccuracy();
-    document.getElementById('result').innerText = `Temps écoulé! Précision: ${accuracy}%`;
+    isFinished = true;
 }
