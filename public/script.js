@@ -9,7 +9,7 @@ const wordMargin = 10;
 let isFinished = false;
 
 function startTest() {
-    const isFinished = false;
+    isFinished = false;
     fetch('/api/random-text')
         .then(response => response.json())
         .then(data => {
