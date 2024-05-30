@@ -7,9 +7,15 @@ const countdownTime = 60;
 const targetWordCount = 100;
 const wordMargin = 10;
 let isFinished = false;
+let totalKeystrokes = 0;
+let correctKeystrokes = 0;
 
 function startTest() {
+    clearInterval(timer);
+    clearTimeout(countdown);
     isFinished = false;
+    totalKeystrokes = 0;
+    correctKeystrokes = 0;
     fetch('/api/random-text')
         .then(response => response.json())
         .then(data => {
@@ -18,10 +24,14 @@ function startTest() {
             updateDisplay();
             document.getElementById('text-input').value = '';
             document.getElementById('time').innerText = '';
+            document.getElementById('accuracy').innerText = '';
+            document.getElementById('key-accuracy').innerText = '';
             startTime = new Date();
             document.getElementById('text-input').focus();
             timer = setInterval(updateTime, 1000);
             countdown = setTimeout(endTest, countdownTime * 1000);
+            document.getElementById('start-button').innerText = 'Recommencer le test';
+            document.getElementById('text-input').disabled = false;
         })
         .catch(err => console.error('Erreur:', err));
 }
@@ -38,7 +48,7 @@ function getRandomTextPortion(text, targetWordCount, wordMargin) {
 }
 
 function updateDisplay() {
-    if (isFinished) {return;}
+    if (isFinished) { return; }
     const textDisplay = document.getElementById('text-display');
     textDisplay.innerHTML = '';
 
@@ -59,15 +69,17 @@ function updateDisplay() {
 }
 
 function checkInput() {
-    if (isFinished) {return;}
+    if (isFinished) { return; }
     const input = document.getElementById('text-input').value;
     const currentChar = textToType[currentIndex];
 
     if (input.length > 0) {
         const typedChar = input[input.length - 1];
+        totalKeystrokes++;
 
         if (typedChar === currentChar) {
             currentIndex++;
+            correctKeystrokes++;
         }
         document.getElementById('text-input').value = '';
         updateDisplay();
@@ -77,25 +89,36 @@ function checkInput() {
             clearTimeout(countdown);
             const endTime = new Date();
             const timeTaken = (endTime - startTime) / 1000;
-            const accuracy = calculateAccuracy();
-            document.getElementById('time').innerText = `Temps: ${timeTaken} secondes, Précision: ${accuracy}%`;
+            const textAccuracy = calculateTextAccuracy();
+            const keyAccuracy = calculateKeyAccuracy();
+            document.getElementById('time').innerText = `Temps: ${timeTaken} secondes`;
+            document.getElementById('accuracy').innerText = `Précision du texte: ${textAccuracy}%`;
+            document.getElementById('key-accuracy').innerText = `Précision des touches: ${keyAccuracy}%`;
+            isFinished = true;
         }
     }
 }
 
-function calculateAccuracy() {
+function calculateTextAccuracy() {
     let correctChars = currentIndex;
     return ((correctChars / textToType.length) * 100).toFixed(2);
 }
 
+function calculateKeyAccuracy() {
+    if (totalKeystrokes === 0) return "0.00"; // Evite la division par zéro
+    return ((correctKeystrokes / totalKeystrokes) * 100).toFixed(2);
+}
+
 function updateTime() {
-    if (isFinished) {return;}
+    if (isFinished) { return; }
     const currentTime = new Date();
     const timeElapsed = ((currentTime - startTime) / 1000).toFixed(0);
     const timeLeft = countdownTime - timeElapsed;
     document.getElementById('time').innerText = `Temps restant: ${timeLeft} secondes`;
-    const accuracy = calculateAccuracy();
-    document.getElementById('accuracy').innerText = `Précision: ${accuracy}%`;
+    const textAccuracy = calculateTextAccuracy();
+    const keyAccuracy = calculateKeyAccuracy();
+    document.getElementById('accuracy').innerText = `Précision du texte: ${textAccuracy}%`;
+    document.getElementById('key-accuracy').innerText = `Précision des touches: ${keyAccuracy}%`;
     if (timeLeft <= 0) {
         endTest();
     }
@@ -104,4 +127,5 @@ function updateTime() {
 function endTest() {
     clearInterval(timer);
     isFinished = true;
+    document.getElementById('text-input').disabled = true;
 }
