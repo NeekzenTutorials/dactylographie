@@ -3,14 +3,22 @@ let currentIndex = 0;
 let startTime;
 let timer;
 let countdown;
-const countdownTime = 60;
-const targetWordCount = 100;
+let countdownTime = 60;
+let targetWordCount = 100;
 const wordMargin = 10;
 let isFinished = false;
 let totalKeystrokes = 0;
 let correctKeystrokes = 0;
 
 function startTest() {
+    // Lire les cookies pour obtenir les paramètres
+    const savedDuration = getCookie('testDuration');
+    const savedParagraphSize = getCookie('paragraphSize');
+
+    // Utiliser les valeurs sauvegardées ou les valeurs par défaut
+    countdownTime = savedDuration ? parseInt(savedDuration, 10) : 60;
+    targetWordCount = savedParagraphSize ? parseInt(savedParagraphSize, 10) : 100;
+
     clearInterval(timer);
     clearTimeout(countdown);
     isFinished = false;
@@ -91,7 +99,7 @@ function checkInput() {
             const timeTaken = (endTime - startTime) / 1000;
             const textAccuracy = calculateTextAccuracy();
             const keyAccuracy = calculateKeyAccuracy();
-            document.getElementById('time').innerText = `Temps: ${timeTaken} secondes`;
+            document.getElementById('time').innerText = `Temps final: ${timeTaken} secondes`;
             document.getElementById('accuracy').innerText = `Précision du texte: ${textAccuracy}%`;
             document.getElementById('key-accuracy').innerText = `Précision des touches: ${keyAccuracy}%`;
             isFinished = true;
@@ -128,4 +136,11 @@ function endTest() {
     clearInterval(timer);
     isFinished = true;
     document.getElementById('text-input').disabled = true;
+}
+
+function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+    return null;
 }

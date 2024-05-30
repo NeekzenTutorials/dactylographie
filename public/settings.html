@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paramètres - Test de Dactylographie</title>
+    <link rel="stylesheet" href="settings.css">
+    <script src="settings.js" defer></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Paramètres</h1>
+        </header>
+        <main>
+            <form id="settings-form">
+                <div class="form-group">
+                    <label for="test-duration">Durée du test :</label>
+                    <select id="test-duration" name="test-duration">
+                        <option value="30">30 secondes</option>
+                        <option value="60">1 minute</option>
+                        <option value="90">1 minute 30 secondes</option>
+                        <option value="120">2 minutes</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="paragraph-size">Taille du paragraphe :</label>
+                    <select id="paragraph-size" name="paragraph-size">
+                        <option value="60">60 mots (+/- 10)</option>
+                        <option value="90">90 mots (+/- 10)</option>
+                        <option value="120">120 mots (+/- 10)</option>
+                        <option value="150">150 mots (+/- 10)</option>
+                    </select>
+                </div>
+                <button type="submit" class="start-button">Valider</button>
+            </form>
+        </main>
+    </div>
+</body>
+</html>

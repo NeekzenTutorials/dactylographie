@@ -5,19 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Test de Dactylographie</title>
     <link rel="stylesheet" href="test.css">
+    <script src="test.js" defer></script>
 </head>
 <body>
     <div class="container">
-        <h1>Test de Dactylographie</h1>
-        <div id="text-display"></div>
-        <div id="result">
-            <div id="time"></div>
-            <div id="accuracy"></div>
-            <div id="key-accuracy"></div>
-        </div>
-        <textarea id="text-input" placeholder="Commencez à taper..." oninput="checkInput()"></textarea>
-        <button id="start-button" onclick="startTest()">Commencer le test</button>
+        <header>
+            <h1>Test de Dactylographie</h1>
+        </header>
+        <main>
+            <div id="text-display"></div>
+            <div id="result">
+                <div id="time"></div>
+                <div id="accuracy"></div>
+                <div id="key-accuracy"></div>
+            </div>
+            <textarea id="text-input" placeholder="Commencez à taper..." oninput="checkInput()"></textarea>
+            <button id="start-button" onclick="startTest()">Commencer le test</button>
+            <a href="settings.html" class="settings-button">Paramètres</a>
+            <a href="index.html" class="home-button">Accueil</a>
+        </main>
     </div>
-    <script src="test.js"></script>
 </body>
 </html>
